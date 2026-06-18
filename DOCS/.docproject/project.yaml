@@ -1,0 +1,13 @@
+title: Eve Realm Infra
+type: technical
+objective: Technical developer documentation for the cluster-level infrastructure. Covers Kubernetes manifests, NATS and Redis deployments, k3d cluster management, shared ConfigMaps, ingress configuration, and deployment orchestration.
+author: beduardo
+status: drafting
+language: en
+created: "2026-06-18"
+vectorDB:
+    path: .docproject/vectors.db
+    chunkSize: 500
+    chunkOverlap: 50
+    embeddingModel: text-embedding-3-small
+    synthesisModel: gpt-5.4-mini
