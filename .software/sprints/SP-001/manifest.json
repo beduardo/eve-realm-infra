@@ -1,0 +1,108 @@
+{
+  "id": "SP-001",
+  "title": "Foundation Layer — Namespace, ConfigMap, k3d Cluster",
+  "status": "completed",
+  "created": "2026-06-22T05:17:01Z",
+  "updated": "2026-06-22T06:09:15Z",
+  "entities": [
+    {
+      "id": "REQ-001",
+      "title": "Eve Realm Namespace",
+      "type": "requirement",
+      "status_at_entry": "active",
+      "partial": false
+    },
+    {
+      "id": "REQ-002",
+      "title": "Shared ConfigMap",
+      "type": "requirement",
+      "status_at_entry": "active",
+      "partial": false
+    },
+    {
+      "id": "REQ-003",
+      "title": "k3d Cluster Lifecycle",
+      "type": "requirement",
+      "status_at_entry": "active",
+      "partial": false
+    },
+    {
+      "id": "SC-001",
+      "title": "Apply Namespace to Clean Cluster",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-002",
+      "title": "Reapply Existing Namespace",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-003",
+      "title": "Apply ConfigMap with Existing Namespace",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-004",
+      "title": "Reapply Existing ConfigMap",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-005",
+      "title": "ConfigMap Service URLs Follow K8s DNS Pattern",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-006",
+      "title": "Create Cluster Without Prior Cluster",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-007",
+      "title": "Create Cluster When Already Exists",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-008",
+      "title": "Delete Existing Cluster",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-009",
+      "title": "Delete Non-Existent Cluster",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-00A",
+      "title": "Start and Stop Preserve Cluster State",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-00B",
+      "title": "Status Shows Pods and Services When Context Matches",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    }
+  ],
+  "readme_update_needed": false
+}

@@ -1,0 +1,73 @@
+{
+  "id": "SP-002",
+  "title": "Makefile and Versioning",
+  "status": "completed",
+  "created": "2026-06-22T13:34:31Z",
+  "updated": "2026-06-22T14:09:22Z",
+  "entities": [
+    {
+      "id": "REQ-004",
+      "title": "Makefile and Versioning",
+      "type": "requirement",
+      "status_at_entry": "active",
+      "partial": false
+    },
+    {
+      "id": "SC-00C",
+      "title": "Bump Patch Version",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-00D",
+      "title": "Bump Minor Version Resets Patch",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-00E",
+      "title": "Bump Major Version Resets Minor and Patch",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-00F",
+      "title": "Deploy Applies Manifests in Dependency Order",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-010",
+      "title": "Undeploy Removes Services but Preserves Namespace",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-011",
+      "title": "Undeploy-Local Deletes Entire Namespace",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-012",
+      "title": "Cluster Targets Delegate to k3d Script",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    },
+    {
+      "id": "SC-013",
+      "title": "k3d-Status Shows Namespace Resources",
+      "type": "scenario",
+      "status_at_entry": "validated",
+      "partial": false
+    }
+  ],
+  "readme_update_needed": false
+}

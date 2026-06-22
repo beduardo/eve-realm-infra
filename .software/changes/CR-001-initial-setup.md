@@ -18,10 +18,10 @@ related_userstories: []
 source: auto
 spec_source: ""
 start_commit: 97c95d398fec
-status: draft
+status: in-progress
 tags: []
 title: Initial setup
-updated: "2026-06-18"
+updated: "2026-06-22"
 ---
 
 # CR-001: Initial setup
