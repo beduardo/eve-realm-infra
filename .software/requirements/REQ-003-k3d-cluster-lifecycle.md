@@ -44,15 +44,16 @@ idempotent operations and clear error handling.
    - `REGISTRY_PORT=5100`
    - `API_PORT=6550`
    - `HTTP_PORT=30000`
+   - `GRPC_PORT=30051`
 4. `create` command:
    - Creates the registry via `k3d registry create` with port 5100 (idempotent — ignores already-exists error via `|| true`)
-   - Creates the cluster with `--registry-use k3d-eve-realm-registry.localhost:5100`, `--api-port 6550`, `--port 30000:30000@server:0`, `--k3s-arg "--disable=traefik@server:0"`, `--wait`
+   - Creates the cluster with `--registry-use k3d-eve-realm-registry.localhost:5100`, `--api-port 6550`, `--port 30000:30000@server:0`, `--port 30051:30051@server:0`, `--k3s-arg "--disable=traefik@server:0"`, `--wait`
    - Exits with error if the cluster already exists (guard check before creation)
-   - Prints cluster info, registry address, NodePort address, and next steps on success
+   - Prints cluster info, registry address, NodePort addresses (HTTP and gRPC), and next steps on success
 5. `delete` command: removes cluster and registry, both idempotent via `|| true`
 6. `start`/`stop` commands: resume/pause the cluster preserving state
 7. `status` command: lists k3d clusters, registries, and — if the kubectl context matches the cluster — pods and services in the `eve-realm` namespace
-8. Traefik is disabled — local access is via NodePort 30000 directly
+8. Traefik is disabled — local access is via NodePort 30000 (HTTP) and 30051 (gRPC) directly
 9. Invalid or missing command input displays usage and exits with code 1
 
 ## Target Path

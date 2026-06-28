@@ -36,8 +36,9 @@ updated: "2026-06-22"
   - Registry connected at `k3d-eve-realm-registry.localhost:5100`
   - Kubernetes API on port 6550
   - NodePort 30000 mapped to host port 30000
+  - NodePort 30051 mapped to host port 30051 (gRPC)
   - Traefik disabled
 - `kubectl cluster-info` output is printed
-- Registry address and NodePort address are displayed
+- Registry address and NodePort addresses (HTTP and gRPC) are displayed
 - Next steps are printed
 - Exit code is 0

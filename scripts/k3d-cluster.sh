@@ -6,6 +6,7 @@ REGISTRY_NAME="eve-realm-registry.localhost"
 REGISTRY_PORT=5100
 API_PORT=6550
 HTTP_PORT=30000
+GRPC_PORT=30051
 
 # Colored output helpers
 RED='\033[0;31m'
@@ -48,6 +49,7 @@ create_cluster() {
     --registry-use "k3d-${REGISTRY_NAME}:${REGISTRY_PORT}" \
     --api-port "${API_PORT}" \
     --port "${HTTP_PORT}:30000@server:0" \
+    --port "${GRPC_PORT}:30051@server:0" \
     --k3s-arg "--disable=traefik@server:0" \
     --wait
 
@@ -55,7 +57,8 @@ create_cluster() {
   kubectl cluster-info --context "k3d-${CLUSTER_NAME}"
   echo ""
   echo -e "  ${BOLD}Registry:${RESET}  k3d-${REGISTRY_NAME}:${REGISTRY_PORT}"
-  echo -e "  ${BOLD}NodePort:${RESET}  localhost:${HTTP_PORT}"
+  echo -e "  ${BOLD}HTTP:${RESET}      localhost:${HTTP_PORT}"
+  echo -e "  ${BOLD}gRPC:${RESET}      localhost:${GRPC_PORT}"
   echo ""
   echo -e "${BOLD}Next steps:${RESET}"
   echo "  make deploy          # apply namespace, configmap, NATS, Redis manifests"
