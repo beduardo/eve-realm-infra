@@ -40,5 +40,6 @@ updated: "2026-06-22"
   - Traefik disabled
 - `kubectl cluster-info` output is printed
 - Registry address and NodePort addresses (HTTP and gRPC) are displayed
+- Port-forwarding verification runs: each NodePort is tested for host reachability and SSH tunnels are forced if needed (Lima/Rancher Desktop only)
 - Next steps are printed
 - Exit code is 0

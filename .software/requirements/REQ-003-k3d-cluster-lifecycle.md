@@ -50,11 +50,19 @@ idempotent operations and clear error handling.
    - Creates the cluster with `--registry-use k3d-eve-realm-registry.localhost:5100`, `--api-port 6550`, `--port 30000:30000@server:0`, `--port 30051:30051@server:0`, `--k3s-arg "--disable=traefik@server:0"`, `--wait`
    - Exits with error if the cluster already exists (guard check before creation)
    - Prints cluster info, registry address, NodePort addresses (HTTP and gRPC), and next steps on success
+   - Runs port-forwarding verification after cluster creation (see AC 10)
 5. `delete` command: removes cluster and registry, both idempotent via `|| true`
-6. `start`/`stop` commands: resume/pause the cluster preserving state
+6. `start`/`stop` commands: resume/pause the cluster preserving state. `start` runs port-forwarding verification after the cluster is started (see AC 10)
 7. `status` command: lists k3d clusters, registries, and — if the kubectl context matches the cluster — pods and services in the `eve-realm` namespace
 8. Traefik is disabled — local access is via NodePort 30000 (HTTP) and 30051 (gRPC) directly
 9. Invalid or missing command input displays usage and exits with code 1
+10. Port-forwarding verification (`ensure_port_forwarding`):
+    - Runs after `create` and `start` commands
+    - Skips silently if the Lima SSH socket (`~/Library/Application Support/rancher-desktop/lima/0/ssh.sock`) does not exist (non-Rancher Desktop environments)
+    - For each NodePort (`HTTP_PORT`, `GRPC_PORT`), tests host reachability via `nc -z`
+    - If a port is unreachable, forces an SSH tunnel through the Lima mux socket
+    - Verifies the tunnel succeeded with a second `nc -z` check
+    - Warns if any port remains unreachable after the tunnel attempt
 
 ## Target Path
 

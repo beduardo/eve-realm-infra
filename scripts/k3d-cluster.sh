@@ -21,6 +21,10 @@ success() { echo -e "${GREEN}==>${RESET} $*"; }
 warn()    { echo -e "${YELLOW}Warning:${RESET} $*"; }
 error()   { echo -e "${RED}Error:${RESET} $*" >&2; }
 
+NODEPORTS=("${HTTP_PORT}" "${GRPC_PORT}")
+
+LIMA_SSH_SOCK="${HOME}/Library/Application Support/rancher-desktop/lima/0/ssh.sock"
+
 usage() {
   cat <<EOF
 ${BOLD}Usage:${RESET} $0 <command>
@@ -32,6 +36,36 @@ ${BOLD}Commands:${RESET}
   stop      Stop the eve-realm cluster (preserves state)
   status    Show cluster and registry status
 EOF
+}
+
+ensure_port_forwarding() {
+  if [[ ! -S "${LIMA_SSH_SOCK}" ]]; then
+    return 0
+  fi
+
+  info "Verifying host port forwarding (Lima/Rancher Desktop)"
+  local failed=0
+  for port in "${NODEPORTS[@]}"; do
+    if nc -z -w 2 localhost "${port}" 2>/dev/null; then
+      success "  port ${port} — reachable"
+    else
+      warn "  port ${port} — not reachable, forcing SSH tunnel"
+      ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        -S "${LIMA_SSH_SOCK}" \
+        -O forward -L "0.0.0.0:${port}:localhost:${port}" \
+        lima-rancher-desktop 2>/dev/null
+
+      if nc -z -w 2 localhost "${port}" 2>/dev/null; then
+        success "  port ${port} — tunnel established"
+      else
+        error "  port ${port} — tunnel failed, port still unreachable"
+        failed=1
+      fi
+    fi
+  done
+  if [[ "${failed}" -eq 1 ]]; then
+    warn "Some ports could not be forwarded. Try restarting Rancher Desktop."
+  fi
 }
 
 create_cluster() {
@@ -60,6 +94,9 @@ create_cluster() {
   echo -e "  ${BOLD}HTTP:${RESET}      localhost:${HTTP_PORT}"
   echo -e "  ${BOLD}gRPC:${RESET}      localhost:${GRPC_PORT}"
   echo ""
+
+  ensure_port_forwarding
+
   echo -e "${BOLD}Next steps:${RESET}"
   echo "  make deploy          # apply namespace, configmap, NATS, Redis manifests"
   echo "  make deploy-verify   # run verification job to confirm cluster health"
@@ -79,6 +116,7 @@ start_cluster() {
   info "Starting cluster ${CLUSTER_NAME}"
   k3d cluster start "${CLUSTER_NAME}"
   success "Cluster started"
+  ensure_port_forwarding
 }
 
 stop_cluster() {
